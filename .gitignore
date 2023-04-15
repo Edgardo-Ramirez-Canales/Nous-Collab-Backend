@@ -3,6 +3,7 @@
 /node_modules
 /mongo
 /.vscode
+.env
 # Logs
 logs
 *.log

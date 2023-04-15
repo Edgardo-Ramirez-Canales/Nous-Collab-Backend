@@ -43,4 +43,9 @@ export class UsersService {
   remove(id: string) {
     return this.userModel.findByIdAndDelete(id);
   }
+
+  /* OTROS */
+  findByEmail(email: string) {
+    return this.userModel.findOne({ email }).exec();
+  }
 }

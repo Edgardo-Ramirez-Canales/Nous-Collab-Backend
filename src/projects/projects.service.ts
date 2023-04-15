@@ -1,11 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  InternalServerErrorException,
+  
+} from '@nestjs/common';
+
+import { isValidObjectId, Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
+
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { Project } from './entities/project.entity';
+
 
 @Injectable()
 export class ProjectsService {
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  constructor(
+    @InjectModel(Project.name)
+    private readonly projectModel: Model<Project>,
+  ) {}
+
+  async create(data: CreateProjectDto) {
+    try {
+      const newProject = new this.projectModel(data);
+      return newProject.save();
+    } catch (error) {
+      this.handleExceptions(error);
+    }
   }
 
   findAll() {
@@ -22,5 +45,17 @@ export class ProjectsService {
 
   remove(id: number) {
     return `This action removes a #${id} project`;
+  }
+
+  private handleExceptions(error: any) {
+    if (error.code === 11000) {
+      throw new BadRequestException(
+        `Project exists in db ${JSON.stringify(error.keyValue)}`,
+      );
+    }
+    console.log(error);
+    throw new InternalServerErrorException(
+      `Can't create Project - Check server logs`,
+    );
   }
 }
