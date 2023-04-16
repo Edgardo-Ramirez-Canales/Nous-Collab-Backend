@@ -30,11 +30,30 @@ export class ProjectsService {
   }
 
   findAll() {
-    return `This action returns all projects`;
+     return this.projectModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(term: string) {
+     let project: Project;
+
+     // MongoID
+     if (!project && isValidObjectId(term)) {
+       project = await this.projectModel.findById(term);
+     }
+
+     // Name
+     if (!project) {
+       project = await this.projectModel.findOne({
+         name: term.toLowerCase().trim(),
+       });
+     }
+
+     if (!project)
+       throw new NotFoundException(
+         `Project with id, name "${term}" not found`,
+       );
+    
+    return project;
   }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {

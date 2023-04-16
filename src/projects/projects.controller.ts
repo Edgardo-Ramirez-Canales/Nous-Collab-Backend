@@ -33,19 +33,19 @@ export class ProjectsController {
     @Body() createProjectDto: CreateProjectDto,
     @Request() request,
   ) {
-     const userId = request.user.id;
+    const userId = request.user.id;
     return this.projectsService.create(createProjectDto, userId);
   }
 
   @Public()
-  @Get()
+  @Get('getAll')
   findAll() {
     return this.projectsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.projectsService.findOne(+id);
+  @Get(':term')
+  findOne(@Param('term') term: string) {
+    return this.projectsService.findOne(term);
   }
 
   @Patch(':id')
