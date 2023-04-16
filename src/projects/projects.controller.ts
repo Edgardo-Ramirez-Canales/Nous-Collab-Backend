@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  Request,
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
@@ -28,8 +29,12 @@ export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
-  createProject(@Body() createProjectDto: CreateProjectDto) {
-    return this.projectsService.create(createProjectDto);
+  createProject(
+    @Body() createProjectDto: CreateProjectDto,
+    @Request() request,
+  ) {
+     const userId = request.user.id;
+    return this.projectsService.create(createProjectDto, userId);
   }
 
   @Public()

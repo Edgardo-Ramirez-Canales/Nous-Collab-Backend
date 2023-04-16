@@ -16,6 +16,5 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT);
   console.log(`App running on port ${process.env.PORT}`);
-  console.log(`App running on port ${process.env.JWT_SECRET}`);
 }
 bootstrap();

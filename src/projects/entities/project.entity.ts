@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Express } from 'express'; 
+import { Document, Types } from 'mongoose';
+import { User } from '../../users/entities/user.entity';
 @Schema()
 export class Project extends Document {
   @Prop({ required: true })
@@ -11,7 +11,8 @@ export class Project extends Document {
 
   @Prop()
   image: string;
-  
-}
 
+  @Prop({ type: Types.ObjectId, ref: 'User' })
+  user: Types.ObjectId | User;
+}
 export const ProjectSchema = SchemaFactory.createForClass(Project);

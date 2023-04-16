@@ -13,6 +13,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { EnvConfiguration } from './config/env.config';
 import { JoiValidationSchema } from './config/joi.validation';
 import { MulterModule } from '@nestjs/platform-express';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { MulterModule } from '@nestjs/platform-express';
     ProjectsModule,
     MongooseModule.forRoot(process.env.MONGODB),
     MulterModule,
+    FilesModule,
    
   ],
   controllers: [AppController],

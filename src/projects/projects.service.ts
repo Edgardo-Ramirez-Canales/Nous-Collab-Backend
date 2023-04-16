@@ -3,17 +3,14 @@ import {
   NotFoundException,
   BadRequestException,
   InternalServerErrorException,
-  
 } from '@nestjs/common';
 
-import { isValidObjectId, Model } from 'mongoose';
+import { isValidObjectId, Model, Types } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-
 
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { Project } from './entities/project.entity';
-
 
 @Injectable()
 export class ProjectsService {
@@ -22,9 +19,10 @@ export class ProjectsService {
     private readonly projectModel: Model<Project>,
   ) {}
 
-  async create(data: CreateProjectDto) {
+  async create(data: CreateProjectDto, userId:string) {
     try {
       const newProject = new this.projectModel(data);
+      newProject.user = new Types.ObjectId(userId); 
       return newProject.save();
     } catch (error) {
       this.handleExceptions(error);
