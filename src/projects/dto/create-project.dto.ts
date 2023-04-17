@@ -19,7 +19,9 @@ export class CreateProjectDto {
 
   @IsString()
   @ApiProperty()
-   image: string;
+  image: string;
+  
+  
 }
 
 

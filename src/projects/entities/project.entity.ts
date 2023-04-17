@@ -13,6 +13,6 @@ export class Project extends Document {
   image: string;
 
   @Prop({ type: Types.ObjectId, ref: 'User' })
-  user: Types.ObjectId | User;
+  user: Types.ObjectId | User | string;
 }
 export const ProjectSchema = SchemaFactory.createForClass(Project);

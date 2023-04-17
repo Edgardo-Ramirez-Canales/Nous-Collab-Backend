@@ -22,8 +22,8 @@ import { FilesModule } from './files/files.module';
       validationSchema: JoiValidationSchema,
     }),
 
-    UsersModule,
     AuthModule,
+    UsersModule,
     ProjectsModule,
     MongooseModule.forRoot(process.env.MONGODB),
     MulterModule,

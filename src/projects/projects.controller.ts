@@ -3,38 +3,38 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
-  UseInterceptors,
-  UploadedFile,
-  Request,
+  Put,
+  Req
 } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Public } from '../auth/decorators/public.decorator';
 
-import { FileInterceptor } from '@nestjs/platform-express';
-import { MulterModule } from '@nestjs/platform-express';
-import { Multer } from 'multer';
+import { Request } from 'express';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from '../users/entities/user.entity';
+
+
 
 /* @UseGuards(AuthGuard('jwt'))*/
 @UseGuards(JwtAuthGuard)
-@Controller('projects')
+@Controller('project')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
   createProject(
     @Body() createProjectDto: CreateProjectDto,
-    @Request() request,
+    @Req() req: Request,
   ) {
-    const userId = request.user.id;
-    return this.projectsService.create(createProjectDto, userId);
+    const {role, _id  } = req.user as User;
+    /* console.log(_id); */
+    return this.projectsService.create(createProjectDto,_id);
   }
 
   @Public()
@@ -48,13 +48,19 @@ export class ProjectsController {
     return this.projectsService.findOne(term);
   }
 
-  @Patch(':id')
+  @Put('update/:id')
   update(@Param('id') id: string, @Body() updateProjectDto: UpdateProjectDto) {
-    return this.projectsService.update(+id, updateProjectDto);
+    return this.projectsService.update(id, updateProjectDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
-    return this.projectsService.remove(+id);
+    return this.projectsService.remove(id);
+  }
+
+  @Get('myproyects/:userId')
+  async getProjectsByUserId(@Param('userId') userId: string) {
+   /*  console.log(userId); */
+    return this.projectsService.getProjectsByUserId(userId);
   }
 }
