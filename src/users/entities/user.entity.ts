@@ -4,14 +4,17 @@ import { Exclude} from 'class-transformer'
 @Schema()
 export class User extends Document {
   @Prop({ required: true, unique: true })
+  nameUser: string;
+
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Exclude()
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true })
-  role: string;
+  @Prop({ required: false, default: 'free' })
+  role?: string;
 
   @Prop({ required: false, default: true })
   isActives?: boolean;
