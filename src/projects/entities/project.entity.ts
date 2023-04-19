@@ -12,6 +12,15 @@ export class Project extends Document {
   @Prop()
   image: string;
 
+  @Prop({ required: false, default: '' })
+  html?: string;
+
+  @Prop({ required: false, default: '' })
+  css?: string;
+
+  @Prop({ required: false, default: '' })
+  javaScript?: string;
+
   @Prop({ type: Types.ObjectId, ref: 'User' })
   user: Types.ObjectId | User | string;
 }

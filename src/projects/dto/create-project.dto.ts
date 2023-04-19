@@ -20,8 +20,15 @@ export class CreateProjectDto {
   @IsString()
   @ApiProperty()
   image: string;
-  
-  
+
+  @IsString()
+  readonly html?: string = '';
+
+  @IsString()
+  readonly css?: string = '';
+
+  @IsString()
+  readonly javaScript?: string="";
 }
 
 
