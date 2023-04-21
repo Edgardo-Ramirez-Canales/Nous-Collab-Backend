@@ -4,7 +4,7 @@ import { Exclude } from 'class-transformer';
 @Schema()
 export class User extends Document {
   @Prop({ required: true, unique: true })
-  nameUser: string;
+  name: string;
 
   @Prop({ required: true, unique: true })
   email: string;
