@@ -37,7 +37,7 @@ export class ProjectsController {
     return this.projectsService.create(createProjectDto,_id);
   }
 
-  @Public()
+  /*   @Public()*/
   @Get('getAll')
   findAll() {
     return this.projectsService.findAll();

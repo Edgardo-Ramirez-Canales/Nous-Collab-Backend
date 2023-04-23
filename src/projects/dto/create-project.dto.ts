@@ -10,7 +10,7 @@ export class CreateProjectDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: `project's name` })
-  readonly name: string;
+  readonly nameProject: string;
 
   @IsString()
   @IsNotEmpty()
@@ -19,7 +19,7 @@ export class CreateProjectDto {
 
   @IsString()
   @ApiProperty()
-  image: string;
+  image?: string = '';
 
   @IsString()
   readonly html?: string = '';

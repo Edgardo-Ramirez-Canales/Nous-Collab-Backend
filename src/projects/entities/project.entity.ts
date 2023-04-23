@@ -4,12 +4,12 @@ import { User } from '../../users/entities/user.entity';
 @Schema()
 export class Project extends Document {
   @Prop({ required: true })
-  name: string;
+  nameProject: string;
 
   @Prop()
   description: string;
 
-  @Prop()
+  @Prop({ required: false, default: '' })
   image: string;
 
   @Prop({ required: false, default: '' })
