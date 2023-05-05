@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-
 import { User } from '../users/entities/user.entity';
 
 import { Db } from 'mongodb';
@@ -10,8 +9,6 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { exec } from 'node:child_process';
-
-
 
 @Injectable()
 export class UsersService {
